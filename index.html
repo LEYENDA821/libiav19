@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Castillo #19 | Miko Vibes & B-Day</title>
+    <title>Castillo #19 | Miko & America</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;700&display=swap');
 
@@ -12,48 +12,30 @@
             --america-blue: #002D72;
             --miko-pink: #ff0055;
             --tiktok-cyan: #00f2ea;
-            --dark-bg: #0a0a0a;
         }
 
         body {
             margin: 0;
-            background-color: var(--dark-bg);
+            background: #0a0a0a;
             color: white;
             font-family: 'Outfit', sans-serif;
             overflow-x: hidden;
         }
 
-        /* --- FONDO ANIMADO Y DE IMÁGENES --- */
-        .bg-container {
+        /* --- FONDO CON TUS FOTOS --- */
+        .bg-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -2;
-            background-color: var(--dark-bg);
-        }
-
-        .bg-images {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: 
-                url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2000'), /* Imagen base abstracta */
-                url('https://yt3.googleusercontent.com/9vM70l9J2v4hJz9V_Y_Z7qM8oK_H_Z0Q8oK_H_Z0Q8oK_H_Z0Q8oK_H_Z0Q8oK_H_Z0Q8oK_H=s900-c-k-c0x00ffffff-no-rj'), /* Foto Miko 1 */
-                url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2000'); /* Foto Miko 2 (placeholder) */
+            background: linear-gradient(to bottom, rgba(10,10,10,0.7), #0a0a0a),
+                        url('miko1.png'); /* Usando tu primera foto de fondo */
             background-size: cover;
             background-position: center;
-            filter: blur(8px) brightness(0.3) grayscale(0.5); /* Efecto de desenfoque y oscuridad */
-            opacity: 0.6;
-            transition: opacity 1s ease-in-out;
-        }
-
-        .bg-gradient {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 20% 30%, #002d7222 0%, transparent 50%),
-                        radial-gradient(circle at 80% 70%, #ff005522 0%, transparent 50%);
+            filter: blur(5px);
             z-index: -1;
+            opacity: 0.5;
         }
 
-        /* --- HEADER IMPACTANTE --- */
+        /* --- SECCIÓN PRINCIPAL --- */
         .hero {
             height: 100vh;
             display: flex;
@@ -61,228 +43,147 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            position: relative;
         }
 
         .hero h1 {
             font-family: 'Bebas Neue', cursive;
-            font-size: 15vw;
+            font-size: 18vw;
             margin: 0;
-            line-height: 0.8;
             background: linear-gradient(to bottom, var(--america-yellow), #f0c419);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px rgba(255, 242, 0, 0.4));
+            filter: drop-shadow(0 0 20px rgba(255, 242, 0, 0.5));
         }
 
-        .hero h2 {
-            font-family: 'Bebas Neue', cursive;
-            font-size: 5vw;
-            letter-spacing: 10px;
-            color: white;
-            margin-top: 10px;
+        /* --- GALERÍA DE TUS FOTOS --- */
+        .gallery {
+            display: flex;
+            gap: 15px;
+            padding: 20px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            max-width: 1000px;
+            margin: -100px auto 50px;
         }
 
-        /* --- SECCIÓN PASIONES (ESTILO TIKTOK) --- */
-        .grid-container {
+        .gallery img {
+            width: 250px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 2px solid var(--miko-pink);
+            scroll-snap-align: center;
+            flex-shrink: 0;
+            transition: 0.3s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+            border-color: var(--tiktok-cyan);
+        }
+
+        /* --- TARJETAS --- */
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
             padding: 20px;
-            max-width: 1200px;
-            margin: -80px auto 0;
-            position: relative;
-            z-index: 1;
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 15px;
-            padding: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(12px);
-            transition: 0.4s;
-            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: var(--tiktok-cyan);
-            box-shadow: 0 0 25px rgba(0, 242, 234, 0.15);
-        }
+        .card h3 { font-family: 'Bebas Neue'; font-size: 2rem; color: var(--america-yellow); }
 
-        .card h3 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 2rem;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--america-yellow);
-        }
-
-        .card h3.miko-title {
-            color: var(--miko-pink);
-        }
-
-        /* --- BOTÓN MUSICA TIKTOK --- */
-        .music-player-btn {
+        /* --- REPRODUCTOR --- */
+        .music-btn {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, #fe2c55, #25f4ee);
-            color: white;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(45deg, #fe2c55, #25f4ee);
             border: none;
-            padding: 15px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            z-index: 100;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            transition: transform 0.3s ease;
-        }
-
-        .music-player-btn:hover {
-            transform: scale(1.1);
-        }
-
-        .music-player-btn.paused {
-            opacity: 0.7;
-        }
-
-        /* --- SECCIÓN "FRÍA PERO NO TANTO" --- */
-        .message-section {
-            padding: 100px 20px;
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .message-box {
-            font-size: 1.5rem;
-            line-height: 1.6;
-            color: #ddd;
-        }
-
-        .message-box span {
-            color: var(--miko-pink);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
             font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            z-index: 100;
         }
 
-        footer {
-            padding: 40px;
-            font-size: 0.8rem;
-            opacity: 0.4;
+        .message {
+            padding: 60px 20px;
             text-align: center;
-            position: relative;
-            z-index: 1;
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto;
+            font-style: italic;
         }
 
-        /* Adaptabilidad Móvil */
-        @media (max-width: 600px) {
-            .hero h1 { font-size: 20vw; }
-            .hero h2 { font-size: 8vw; letter-spacing: 5px; }
-            .grid-container { margin-top: -50px; }
-            .message-box { font-size: 1.2rem; }
-        }
+        .message span { color: var(--miko-pink); font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="bg-container">
-        <div class="bg-images" id="bgImages"></div>
-        <div class="bg-gradient"></div>
-    </div>
+    <div class="bg-overlay"></div>
 
     <section class="hero">
-        <h2>HAPPY BIRTHDAY</h2>
+        <h2 style="font-family: 'Bebas Neue'; letter-spacing: 5px;">HAPPY BIRTHDAY</h2>
         <h1>CASTILLO</h1>
-        <h2>LEVEL 19</h2>
+        <h2 style="font-family: 'Bebas Neue'; letter-spacing: 10px; color: var(--tiktok-cyan);">LEVEL 19</h2>
     </section>
 
-    <div class="grid-container">
-        <div class="card">
-            <h3>⚽ CLUB AMÉRICA</h3>
-            <p>La dueña de la cancha. Pasión 100% azulcrema. ¡Ódiame más, pero a los 19 festejamos más!</p>
-        </div>
+    <div class="gallery">
+        <img src="miko1.png" alt="Miko 1">
+        <img src="miko2.png" alt="Miko 2">
+        <img src="miko3.png" alt="Miko 3">
+        <img src="miko4.png" alt="Miko 4">
+    </div>
 
+    <div class="grid">
         <div class="card">
-            <h3 class="miko-title">🎤 FLOW MIKO</h3>
-            <p>Fan #1 de Young Miko y el estilo de Katty Killer. Trap, BTS y puro brillo urbano. Escuchando: "Wassup".</p>
+            <h3>⚽ AMÉRICA FEMENIL</h3>
+            <p>Pasión azulcrema en las venas. El 19 se celebra con la garra de las Águilas.</p>
         </div>
-
         <div class="card">
-            <h3>🇧🇷 BRAZIL VIBES</h3>
-            <p>Ese funk brasileño que no sale de tu cabeza. 19 años con todo el ritmo de los trends virales.</p>
+            <h3 style="color: var(--miko-pink);">🎤 WASSUP MIKO</h3>
+            <p>Flow pesado, estilo único. Fan #1 de Young Miko y el brillo urbano.</p>
+        </div>
+        <div class="card">
+            <h3 style="color: var(--tiktok-cyan);">🇧🇷 BRAZIL VIBES</h3>
+            <p>Directo de los trends de TikTok, el funk brasileño para estos 19.</p>
         </div>
     </div>
 
-    <section class="message-section">
-        <div class="message-box">
-            "Dicen que eres difícil de querer porque eres <span>un poco fría</span>... pero nosotros sabemos que es solo el escudo. Por dentro tienes el corazón más grande. <span>Felices 19, Castillo.</span>"
-        </div>
-    </section>
+    <div class="message">
+        "Dicen que eres difícil de querer porque eres <span>un poco fría</span>... pero nosotros sabemos que solo es tu escudo. Por dentro tienes el corazón más noble. <span>¡Felices 19, Castillo!</span>"
+    </div>
 
-    <footer>
-        Hecho para Castillo - 2024 | Música: Young Miko - Wassup
-    </footer>
+    <button class="music-btn" onclick="playMusic()">🎵 PLAY WASSUP</button>
 
-    <audio id="bgMusic" loop>
-        <source src="https://www.youtube.com/watch?v=FjI5jF_f0iY" type="audio/mpeg"> Tu navegador no soporta el elemento de audio.
+    <audio id="track">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
 
-    <button class="music-player-btn paused" id="musicBtn" onclick="toggleMusic()">
-        🎵
-    </button>
-
     <script>
-        const music = document.getElementById('bgMusic');
-        const btn = document.getElementById('musicBtn');
-
-        function toggleMusic() {
-            if (music.paused) {
-                music.play().catch(error => {
-                    console.log("La reproducción automática fue bloqueada. Interactúa con la página primero.");
-                    alert("¡Haz clic en el botón de música para empezar la fiesta!");
-                });
-                btn.innerText = '⏸️';
-                btn.classList.remove('paused');
+        function playMusic() {
+            var audio = document.getElementById("track");
+            if (audio.paused) {
+                audio.play();
+                document.querySelector('.music-btn').innerText = "⏸️ PAUSE";
             } else {
-                music.pause();
-                btn.innerText = '🎵';
-                btn.classList.add('paused');
+                audio.pause();
+                document.querySelector('.music-btn').innerText = "🎵 PLAY WASSUP";
             }
         }
-
-        // Intento de reproducción automática al interactuar (clic) con la página
-        document.body.addEventListener('click', function() {
-            if (music.paused && btn.classList.contains('paused')) {
-                 // No hacer nada si el usuario la pausó manualmente
-            } else if (music.paused) {
-                toggleMusic();
-            }
-        }, { once: true }); // Solo se ejecuta una vez
-
-        // Cambio de imágenes de fondo (Opcional - requiere URLs reales)
-        const bgImagesArr = [
-            'https://yt3.googleusercontent.com/9vM70l9J2v4hJz9V_Y_Z7qM8oK_H_Z0Q8oK_H_Z0Q8oK_H_Z0Q8oK_H_Z0Q8oK_H_Z0Q8oK_H=s900-c-k-c0x00ffffff-no-rj', // Foto Miko 1
-            // Agrega más URLs de imágenes reales aquí si tienes
-        ];
-        let currentImgIdx = 0;
-        const bgImagesDiv = document.getElementById('bgImages');
-
-        function changeBgImage() {
-            if (bgImagesArr.length > 1) {
-                currentImgIdx = (currentImgIdx + 1) % bgImagesArr.length;
-                bgImagesDiv.style.backgroundImage = `url('${bgImagesArr[currentImgIdx]}')`;
-            }
-        }
-
-        // Descomenta la siguiente línea para activar el cambio de imagen cada 5 segundos
-        // setInterval(changeBgImage, 5000); 
-
     </script>
 
 </body>

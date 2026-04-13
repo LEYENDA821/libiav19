@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Castillo v19.0</title>
+
+<style>
+body {
+  margin: 0;
+  background: linear-gradient(135deg, #0b0c10, #1f2833);
+  color: #66fcf1;
+  font-family: monospace;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+h1 {
+  color: #f7d117;
+  animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 10px #f7d117; }
+  to { text-shadow: 0 0 25px #f7d117; }
+}
+
+button {
+  padding: 12px 25px;
+  margin-top: 20px;
+  background: #f7d117;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  transition: transform 0.2s;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+.hidden {
+  display: none;
+}
+
+.fadeIn {
+  animation: fadeIn 1.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+.card {
+  margin: 20px auto;
+  padding: 20px;
+  width: 85%;
+  max-width: 400px;
+  border-radius: 15px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+}
+
+/* efecto glitch */
+.glitch {
+  color: #f7d117;
+  font-size: 24px;
+  animation: glitch 1s infinite;
+}
+
+@keyframes glitch {
+  0% { text-shadow: 2px 2px red; }
+  25% { text-shadow: -2px 2px blue; }
+  50% { text-shadow: 2px -2px lime; }
+  75% { text-shadow: -2px -2px red; }
+  100% { text-shadow: 2px 2px blue; }
+}
+</style>
+
+</head>
+
+<body>
+
+<h1 class="glitch">⚽ ACCESO DETECTADO ⚽</h1>
+<p>Inicializando sistema...</p>
+
+<button onclick="iniciar()">Entrar</button>
+
+<div id="contenido" class="hidden">
+
+  <div class="card fadeIn">
+    <h2>🎉 Libia Castillo 🎉</h2>
+    <p>✔ Versión desbloqueada: 19.0</p>
+    <p>✔ Habilidad: divertida sin esfuerzo 😎</p>
+    <p>✔ Fan: América Femenil 💛</p>
+    <p>✔ Modo activo: Katty Killer ⚽🔥</p>
+  </div>
+
+  <div class="card fadeIn">
+    <p>
+    “No eres de abrazos… pero igual te aguantas esto 😌<br><br>
+    La neta qué chido que últimamente nos llevemos mejor,<br>
+    me gusta pasar el rato contigo y hacer tonterías.<br><br>
+    Eres única… y eso está con madre.”
+    </p>
+  </div>
+
+  <div class="card fadeIn">
+    <p>🎯 MISIÓN ACTIVADA 🎯</p>
+    <p>Disfrutar hoy como si ganara el Ame 🏆</p>
+  </div>
+
+</div>
+
+<audio id="musica" loop>
+  <source src="https://www.myinstants.com/media/sounds/tiktok-trend.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="clickSound">
+  <source src="https://www.myinstants.com/media/sounds/click.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function iniciar() {
+  document.getElementById("contenido").classList.remove("hidden");
+  document.getElementById("musica").play();
+  document.getElementById("clickSound").play();
+}
+</script>
+
+</body>
+</html>

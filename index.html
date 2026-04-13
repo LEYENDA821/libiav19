@@ -2,153 +2,166 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Castillo #19 | Miko & America</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PARA TI 💜 CASTILLO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;700&display=swap');
+        :root { --primary: #bc13fe; --secondary: #00ffff; --bg-dark: #000; }
+        * { box-sizing: border-box; }
+        body, html { margin: 0; padding: 0; background: var(--bg-dark); color: white; font-family: 'Montserrat', sans-serif; overflow: hidden; width: 100vw; height: 100vh; }
 
-        :root {
-            --america-yellow: #FFF200;
-            --america-blue: #002D72;
-            --miko-pink: #ff0055;
-            --tiktok-cyan: #00f2ea;
-            --fire-red: #ff4500;
-        }
+        .background-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://i.pinimg.com/originals/82/3e/7b/823e7b165510656096056b3e75e9540c.jpg'); background-size: cover; background-position: center; filter: blur(10px) brightness(0.3); transform: scale(1.1); z-index: -1; }
 
-        body {
-            margin: 0;
-            background: #0a0a0a;
-            color: white;
-            font-family: 'Outfit', sans-serif;
-            overflow-x: hidden;
-        }
+        .screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 25px; text-align: center; transform: translateY(100%); transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); z-index: 10; visibility: hidden; }
+        .screen.active { transform: translateY(0); z-index: 20; visibility: visible; }
 
-        /* --- FONDO CON FOTO --- */
-        .bg-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(10,10,10,0.8), #0a0a0a), url('miko1.png');
-            background-size: cover; background-position: center;
-            filter: blur(8px); z-index: -2; opacity: 0.5;
-        }
+        .neon-title { font-family: 'Bebas Neue', sans-serif; font-size: 3.2rem; letter-spacing: 5px; color: #fff; text-shadow: 0 0 10px var(--primary), 0 0 20px var(--secondary); margin-bottom: 20px; }
 
-        /* --- SECCIÓN PRINCIPAL --- */
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        /* LIBRO DE VISITAS */
+        .guestbook-container { background: rgba(0, 0, 0, 0.7); border: 1px solid var(--primary); padding: 15px; border-radius: 15px; width: 100%; max-width: 350px; max-height: 50vh; overflow-y: auto; margin-bottom: 15px; }
+        input, textarea { width: 100%; background: rgba(255,255,255,0.1); border: 1px solid var(--secondary); color: white; padding: 10px; margin-bottom: 10px; border-radius: 5px; font-family: 'Montserrat'; }
+        .comment { text-align: left; border-bottom: 1px solid rgba(255,255,255,0.2); padding: 8px 0; font-size: 0.9rem; }
+        .comment b { color: var(--secondary); }
 
-        /* --- EFECTO FUEGO --- */
-        .fire-container { position: relative; display: flex; justify-content: center; align-items: center; }
-        .fire-effect {
-            position: absolute; width: 140%; height: 140%;
-            background: radial-gradient(circle, var(--fire-red) 0%, transparent 70%);
-            filter: blur(30px); opacity: 0.7; animation: burn 1.5s infinite alternate; z-index: -1;
-        }
-        @keyframes burn { 0% { transform: scale(1); } 100% { transform: scale(1.2); } }
-
-        /* --- CASTILLO FLOTANTE --- */
-        .hero h1 {
-            font-family: 'Bebas Neue', cursive; font-size: 18vw; margin: 0;
-            background: linear-gradient(to bottom, var(--america-yellow), #f0c419);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: floating 3s ease-in-out infinite;
-            filter: drop-shadow(0 0 15px rgba(255, 69, 0, 0.6));
-        }
-        @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-
-        .hero h2 { font-family: 'Bebas Neue'; font-size: 5vw; letter-spacing: 5px; margin: 5px 0; }
-
-        /* --- GALERÍA --- */
-        .gallery { display: flex; gap: 15px; padding: 20px; overflow-x: auto; max-width: 1000px; margin: -80px auto 50px; scroll-behavior: smooth; }
-        .gallery img { width: 220px; height: 300px; object-fit: cover; border-radius: 15px; border: 2px solid var(--miko-pink); flex-shrink: 0; transition: 0.3s; }
-        .gallery img:hover { transform: scale(1.05); border-color: var(--tiktok-cyan); }
-
-        /* --- TARJETAS --- */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 20px; max-width: 1100px; margin: 0 auto; }
-        .card { background: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 20px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); text-align: center; transition: 0.3s; }
-        .card img.miko-thumb { width: 100%; height: 180px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; border: 1px solid var(--miko-pink); }
-        .card h3 { font-family: 'Bebas Neue'; font-size: 2rem; margin: 10px 0; }
-
-        /* --- BOTÓN TIKTOK --- */
-        .tk-button { background: #000; border: 2px solid var(--tiktok-cyan); color: white; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 10px; margin: 15px auto 0; transition: 0.3s; }
-        .tk-button:hover { background: var(--tiktok-cyan); color: black; box-shadow: 0 0 15px var(--tiktok-cyan); }
-
-        /* --- MODAL --- */
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.95); justify-content: center; align-items: center; }
-        .modal-content { position: relative; width: 325px; height: 580px; border-radius: 15px; overflow: hidden; }
-        .close { position: absolute; top: -45px; right: 0; color: white; font-size: 35px; cursor: pointer; }
-
-        /* --- MENSAJE --- */
-        .message { padding: 80px 20px; text-align: center; font-size: 1.5rem; max-width: 800px; margin: 0 auto; line-height: 1.6; }
-        .message span { color: var(--miko-pink); font-weight: bold; }
-
-        .music-btn { position: fixed; bottom: 30px; right: 30px; background: linear-gradient(45deg, #fe2c55, #25f4ee); border: none; color: white; padding: 15px 25px; border-radius: 50px; font-weight: bold; cursor: pointer; z-index: 100; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-
-        @media (max-width: 600px) { .hero h1 { font-size: 22vw; } .hero h2 { font-size: 8vw; } }
+        button { padding: 12px 24px; margin: 5px; border: none; border-radius: 10px; background: linear-gradient(45deg, var(--primary), var(--secondary)); color: white; font-weight: 700; text-transform: uppercase; cursor: pointer; }
+        
+        .camera-ui { width: 260px; height: 350px; border: 2px solid rgba(255,255,255,0.3); border-radius: 20px; position: relative; overflow: hidden; background: rgba(255,255,255,0.05); }
+        .heart { position: absolute; font-size: 40px; z-index: 100; animation: fall 3s linear forwards; }
+        @keyframes fall { from { top: -10%; } to { top: 110%; } }
     </style>
 </head>
 <body>
 
-    <div class="bg-overlay"></div>
+    <div class="background-overlay"></div>
 
-    <section class="hero">
-        <h2 style="color: white; letter-spacing: 8px;">HAPPY BIRTHDAY</h2>
-        <div class="fire-container">
-            <div class="fire-effect"></div>
-            <h1>CASTILLO</h1>
-        </div>
-        <h2 style="color: var(--tiktok-cyan); letter-spacing: 3px;">CUMPLEAÑOS #19</h2>
-    </section>
-
-    <div class="gallery">
-        <img src="miko1.png"> <img src="miko2.png"> <img src="miko3.png"> <img src="miko4.png">
+    <div class="screen active" id="s0">
+        <h1 class="neon-title">CASTILLO 💜</h1>
+        <button onclick="startApp()">INICIAR EXPERIENCIA</button>
     </div>
 
-    <div class="grid">
-        <div class="card">
-            <h3 style="color: var(--america-yellow);">⚽ AMÉRICA FEMENIL</h3>
-            <p>Pasión azulcrema en las venas. El 19 se celebra con la garra de las Águilas.</p>
+    <div class="screen" id="s1">
+        <h2>¿Mood de hoy? 😏</h2>
+        <div>
+            <button onclick="setMsg('⚽ ¡América hasta la muerte! 🔥')">⚽</button>
+            <button onclick="setMsg('😂 TikTokera nivel pro 💃')">😂</button>
+            <button onclick="setMsg('😡 Pero así te quiero 😜')">😡</button>
         </div>
-        <div class="card">
-            <h3 style="color: var(--miko-pink);">🎤 IT'S BABY MIKO</h3>
-            <p>Flow pesado, estilo único. Fan #1 de Young Miko y el brillo urbano.</p>
-        </div>
-        <div class="card">
-            <h3 style="color: var(--tiktok-cyan);">🇧🇷 BRAZIL VIBES</h3>
-            <p>Directo de los trends de TikTok, el funk brasileño para estos 19.</p>
-            <button class="tk-button" onclick="openTikTok()"><span>📱</span> VER TIKTOK</button>
-        </div>
+        <p id="msg-display" style="color:var(--secondary); min-height:25px;"></p>
+        <button onclick="goTo(2)">SIGUIENTE</button>
     </div>
 
-    <div class="message">
-        "Felices 19 a la persona con la que paso el <span>90% de mi vida</span>. 
-        Espero que este año aprendas a ser un <span>2% menos fría</span>... 
-        o no, así te quiero. <span>¡Vamos por comida luego!</span>"
+    <div class="screen" id="s2">
+        <h2 style="font-family:'Bebas Neue';">🎮 ATRAPA LOS 💜</h2>
+        <p>Score: <span id="score">0</span></p>
+        <button id="play-btn" onclick="startHearts()">JUGAR</button>
+        <button onclick="goTo(3)">SIGUIENTE</button>
     </div>
 
-    <div id="tkModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeTikTok()">&times;</span>
-            <iframe id="tkFrame" width="325" height="580" src="" frameborder="0" allowfullscreen></iframe>
+    <div class="screen" id="s3">
+        <h2 style="font-family:'Bebas Neue';">📸 RECUERDOS</h2>
+        <button onclick="playVoz()">🎤 ESCUCHAR VOZ</button>
+        <button onclick="goTo(4)">DEJAR MENSAJE</button>
+    </div>
+
+    <div class="screen" id="s4">
+        <h2 style="font-family:'Bebas Neue';">💬 MENSAJES DE AMIGOS</h2>
+        <div class="guestbook-container" id="comments-list">
+            </div>
+        <input type="text" id="guest-name" placeholder="Tu nombre...">
+        <textarea id="guest-msg" placeholder="Tu mensaje para Libia..."></textarea>
+        <button onclick="saveComment()">PUBLICAR 💜</button>
+        <button onclick="goTo(5)" style="background:none; border:1px solid white;">SIGUIENTE</button>
+    </div>
+
+    <div class="screen" id="s5">
+        <div class="camera-ui">
+            <div style="position:absolute; top:20%; left:50%; transform:translateX(-50%); font-size:3rem;">👑</div>
+            <div style="position:absolute; top:40%; left:50%; transform:translateX(-50%); width:120px; height:40px; border:3px solid var(--primary); border-radius:10px; box-shadow:0 0 15px var(--primary);"></div>
         </div>
+        <p style="font-size:0.7rem; margin-top:10px;">FILTRO: CASTILLO_ULTRA_V1.0</p>
+        <button onclick="goTo(6); startFinalType();">VER FINAL</button>
     </div>
 
-    <button class="music-btn" id="mBtn" onclick="playMusic()">🎵 PLAY WASSUP</button>
-    <audio id="track" loop><source src="mikoWassup.mp3" type="audio/mpeg"></audio>
+    <div class="screen" id="s6">
+        <div id="final-typed" style="font-size:0.9rem; text-align:left; white-space:pre-wrap;"></div>
+        <div id="dev-block" style="font-family:'Fira Code'; color:var(--secondary); font-size:0.75rem; margin-top:20px; text-align:left; border-top:1px solid var(--secondary); padding-top:10px; display:none;"></div>
+    </div>
 
-    <script>
-        function playMusic() {
-            var audio = document.getElementById("track");
-            var btn = document.getElementById("mBtn");
-            if (audio.paused) { audio.play(); btn.innerText = "⏸️ PAUSE"; } 
-            else { audio.pause(); btn.innerText = "🎵 PLAY WASSUP"; }
+    <audio id="mananitas" src="mananitas.mp3" loop></audio>
+    <audio id="voz" src="mikoWassup.mp3"></audio>
+
+<script>
+    function goTo(index) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById('s' + index).classList.add('active');
+    }
+
+    function startApp() { document.getElementById('mananitas').play(); goTo(1); renderComments(); }
+    function playVoz() { document.getElementById('mananitas').pause(); document.getElementById('voz').play(); }
+    function setMsg(t) { document.getElementById('msg-display').innerText = t; }
+
+    function startHearts() {
+        document.getElementById('play-btn').style.display = 'none';
+        let c = 0;
+        const iv = setInterval(() => {
+            const h = document.createElement('div'); h.className = 'heart'; h.innerText = '💜';
+            h.style.left = Math.random() * 80 + 10 + '%';
+            h.onclick = () => { h.remove(); document.getElementById('score').innerText = parseInt(document.getElementById('score').innerText)+1; };
+            document.body.appendChild(h);
+            c++; if(c > 15) clearInterval(iv);
+            setTimeout(() => h.remove(), 3000);
+        }, 500);
+    }
+
+    // LÓGICA COMENTARIOS
+    function saveComment() {
+        const name = document.getElementById('guest-name').value;
+        const msg = document.getElementById('guest-msg').value;
+        if(name && msg) {
+            const comments = JSON.parse(localStorage.getItem('libia_comments') || '[]');
+            comments.push({ name, msg });
+            localStorage.setItem('libia_comments', JSON.stringify(comments));
+            document.getElementById('guest-name').value = '';
+            document.getElementById('guest-msg').value = '';
+            renderComments();
+        } else { alert("Escribe tu nombre y mensaje!"); }
+    }
+
+    function renderComments() {
+        const container = document.getElementById('comments-list');
+        const comments = JSON.parse(localStorage.getItem('libia_comments') || '[]');
+        container.innerHTML = comments.length ? '' : '<p style="font-size:0.8rem; opacity:0.5;">No hay mensajes aún. ¡Sé el primero!</p>';
+        comments.forEach(c => {
+            container.innerHTML += `<div class="comment"><b>${c.name}:</b> ${c.msg}</div>`;
+        });
+        container.scrollTop = container.scrollHeight;
+    }
+
+    function startFinalType() {
+        const mainTxt = "¡Feliz Cumpleaños! 💜\n\nCASTILLO\n\nSé que no eres de muchos abrazos, pero eres de las personas más importantes en mi vida.\nGracias por todo lo compartido.\nTe quiero un chingo 😎🔥";
+        const devTxt = "\n\n> STATUS: Cumpleaños optimizado al 100%\n> DEV: El mejor hermano (Ing. en Sistemas)\n> INFO: Si te gustó la página, el creador está disponible.\n📸 IG: @aaleex.castillo";
+        
+        let i = 0; const target = document.getElementById('final-typed');
+        function type() {
+            if(i < mainTxt.length) { target.textContent += mainTxt.charAt(i); i++; setTimeout(type, 50); }
+            else { 
+                const devTarget = document.getElementById('dev-block');
+                devTarget.style.display = 'block';
+                devTarget.textContent = devTxt;
+                launchConfetti();
+            }
         }
-        function openTikTok() {
-            document.getElementById("tkModal").style.display = "flex";
-            document.getElementById("tkFrame").src = "tiktok.mp4";
-        }
-        function closeTikTok() {
-            document.getElementById("tkModal").style.display = "none";
-            document.getElementById("tkFrame").src = "";
-        }
-    </script>
+        setTimeout(type, 500);
+    }
+
+    function launchConfetti() {
+        setInterval(() => {
+            const c = document.createElement('div');
+            c.style.cssText = `position:fixed;width:8px;height:8px;background:${Math.random()>0.5?'#bc13fe':'#00ffff'};left:${Math.random()*100}vw;top:-10px;border-radius:50%;z-index:1000;`;
+            c.animate([{transform:'translateY(0)'},{transform:'translateY(100vh) rotate(720deg)'}], 3000);
+            document.body.appendChild(c); setTimeout(()=>c.remove(), 3000);
+        }, 250);
+    }
+</script>
 </body>
 </html>

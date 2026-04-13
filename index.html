@@ -12,6 +12,7 @@
             --america-blue: #002D72;
             --miko-pink: #ff0055;
             --tiktok-cyan: #00f2ea;
+            --fire-red: #ff4500;
         }
 
         body {
@@ -22,113 +23,66 @@
             overflow-x: hidden;
         }
 
-        /* --- FONDO CON TUS FOTOS --- */
+        /* --- FONDO CON FOTO --- */
         .bg-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(10,10,10,0.7), #0a0a0a),
-                        url('miko1.png'); /* Usando tu primera foto de fondo */
-            background-size: cover;
-            background-position: center;
-            filter: blur(5px);
-            z-index: -1;
-            opacity: 0.5;
+            background: linear-gradient(to bottom, rgba(10,10,10,0.8), #0a0a0a), url('miko1.png');
+            background-size: cover; background-position: center;
+            filter: blur(8px); z-index: -2; opacity: 0.5;
         }
 
         /* --- SECCIÓN PRINCIPAL --- */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
 
+        /* --- EFECTO FUEGO --- */
+        .fire-container { position: relative; display: flex; justify-content: center; align-items: center; }
+        .fire-effect {
+            position: absolute; width: 140%; height: 140%;
+            background: radial-gradient(circle, var(--fire-red) 0%, transparent 70%);
+            filter: blur(30px); opacity: 0.7; animation: burn 1.5s infinite alternate; z-index: -1;
+        }
+        @keyframes burn { 0% { transform: scale(1); } 100% { transform: scale(1.2); } }
+
+        /* --- CASTILLO FLOTANTE --- */
         .hero h1 {
-            font-family: 'Bebas Neue', cursive;
-            font-size: 18vw;
-            margin: 0;
+            font-family: 'Bebas Neue', cursive; font-size: 18vw; margin: 0;
             background: linear-gradient(to bottom, var(--america-yellow), #f0c419);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 20px rgba(255, 242, 0, 0.5));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: floating 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 15px rgba(255, 69, 0, 0.6));
         }
+        @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-        /* --- GALERÍA DE TUS FOTOS --- */
-        .gallery {
-            display: flex;
-            gap: 15px;
-            padding: 20px;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            max-width: 1000px;
-            margin: -100px auto 50px;
-        }
+        .hero h2 { font-family: 'Bebas Neue'; font-size: 5vw; letter-spacing: 5px; margin: 5px 0; }
 
-        .gallery img {
-            width: 250px;
-            height: 350px;
-            object-fit: cover;
-            border-radius: 15px;
-            border: 2px solid var(--miko-pink);
-            scroll-snap-align: center;
-            flex-shrink: 0;
-            transition: 0.3s;
-        }
-
-        .gallery img:hover {
-            transform: scale(1.05);
-            border-color: var(--tiktok-cyan);
-        }
+        /* --- GALERÍA --- */
+        .gallery { display: flex; gap: 15px; padding: 20px; overflow-x: auto; max-width: 1000px; margin: -80px auto 50px; scroll-behavior: smooth; }
+        .gallery img { width: 220px; height: 300px; object-fit: cover; border-radius: 15px; border: 2px solid var(--miko-pink); flex-shrink: 0; transition: 0.3s; }
+        .gallery img:hover { transform: scale(1.05); border-color: var(--tiktok-cyan); }
 
         /* --- TARJETAS --- */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            padding: 20px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 20px; max-width: 1100px; margin: 0 auto; }
+        .card { background: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 20px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); text-align: center; transition: 0.3s; }
+        .card img.miko-thumb { width: 100%; height: 180px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; border: 1px solid var(--miko-pink); }
+        .card h3 { font-family: 'Bebas Neue'; font-size: 2rem; margin: 10px 0; }
 
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 25px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
-            text-align: center;
-        }
+        /* --- BOTÓN TIKTOK --- */
+        .tk-button { background: #000; border: 2px solid var(--tiktok-cyan); color: white; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 10px; margin: 15px auto 0; transition: 0.3s; }
+        .tk-button:hover { background: var(--tiktok-cyan); color: black; box-shadow: 0 0 15px var(--tiktok-cyan); }
 
-        .card h3 { font-family: 'Bebas Neue'; font-size: 2rem; color: var(--america-yellow); }
+        /* --- MODAL --- */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.95); justify-content: center; align-items: center; }
+        .modal-content { position: relative; width: 325px; height: 580px; border-radius: 15px; overflow: hidden; }
+        .close { position: absolute; top: -45px; right: 0; color: white; font-size: 35px; cursor: pointer; }
 
-        /* --- REPRODUCTOR --- */
-        .music-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: linear-gradient(45deg, #fe2c55, #25f4ee);
-            border: none;
-            color: white;
-            padding: 15px 25px;
-            border-radius: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            z-index: 100;
-        }
-
-        .message {
-            padding: 60px 20px;
-            text-align: center;
-            font-size: 1.4rem;
-            max-width: 800px;
-            margin: 0 auto;
-            font-style: italic;
-        }
-
+        /* --- MENSAJE --- */
+        .message { padding: 80px 20px; text-align: center; font-size: 1.5rem; max-width: 800px; margin: 0 auto; line-height: 1.6; }
         .message span { color: var(--miko-pink); font-weight: bold; }
+
+        .music-btn { position: fixed; bottom: 30px; right: 30px; background: linear-gradient(45deg, #fe2c55, #25f4ee); border: none; color: white; padding: 15px 25px; border-radius: 50px; font-weight: bold; cursor: pointer; z-index: 100; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+
+        @media (max-width: 600px) { .hero h1 { font-size: 22vw; } .hero h2 { font-size: 8vw; } }
     </style>
 </head>
 <body>
@@ -136,55 +90,66 @@
     <div class="bg-overlay"></div>
 
     <section class="hero">
-        <h2 style="font-family: 'Bebas Neue'; letter-spacing: 5px;">HAPPY BIRTHDAY</h2>
-        <h1>CASTILLO</h1>
-        <h2 style="font-family: 'Bebas Neue'; letter-spacing: 10px; color: var(--tiktok-cyan);">LEVEL 19</h2>
+        <h2 style="color: white; letter-spacing: 8px;">FELIZ</h2>
+        <div class="fire-container">
+            <div class="fire-effect"></div>
+            <h1>CASTILLO</h1>
+        </div>
+        <h2 style="color: var(--tiktok-cyan); letter-spacing: 3px;">CUMPLEAÑOS #19</h2>
     </section>
 
     <div class="gallery">
-        <img src="miko1.png" alt="Miko 1">
-        <img src="miko2.png" alt="Miko 2">
-        <img src="miko3.png" alt="Miko 3">
-        <img src="miko4.png" alt="Miko 4">
+        <img src="miko1.png"> <img src="miko2.png"> <img src="miko3.png"> <img src="miko4.png">
     </div>
 
     <div class="grid">
         <div class="card">
-            <h3>⚽ AMÉRICA FEMENIL</h3>
+            <h3 style="color: var(--america-yellow);">⚽ AMÉRICA FEMENIL</h3>
             <p>Pasión azulcrema en las venas. El 19 se celebra con la garra de las Águilas.</p>
         </div>
         <div class="card">
-            <h3 style="color: var(--miko-pink);">🎤 WASSUP MIKO</h3>
+            <img src="miko2.png" class="miko-thumb">
+            <h3 style="color: var(--miko-pink);">🎤 IT'S BABY MIKO</h3>
             <p>Flow pesado, estilo único. Fan #1 de Young Miko y el brillo urbano.</p>
         </div>
         <div class="card">
             <h3 style="color: var(--tiktok-cyan);">🇧🇷 BRAZIL VIBES</h3>
             <p>Directo de los trends de TikTok, el funk brasileño para estos 19.</p>
+            <button class="tk-button" onclick="openTikTok()"><span>📱</span> VER TIKTOK</button>
         </div>
     </div>
 
     <div class="message">
-        "Feliz cumpleaños manita <span>tqm ya sabes</span>... pasala bien hoy en tu dia y siempre, nunca cambies. <span>¡Felices 19, Castillo!</span>"
+        "Felices 19 a la persona con la que paso el <span>90% de mi vida</span>. 
+        Espero que este año aprendas a ser un <span>2% menos fría</span>... 
+        o no, así te quiero. <span>¡Vamos por comida luego!</span>"
     </div>
 
-    <button class="music-btn" onclick="playMusic()">🎵 PLAY WASSUP</button>
+    <div id="tkModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeTikTok()">&times;</span>
+            <iframe id="tkFrame" width="325" height="580" src="" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
 
-    <audio id="track">
-        <source src="mikoWassup.mp3" type="audio/mpeg">
-    </audio>
+    <button class="music-btn" id="mBtn" onclick="playMusic()">🎵 PLAY WASSUP</button>
+    <audio id="track" loop><source src="mikoWassup.mp3" type="audio/mpeg"></audio>
 
     <script>
         function playMusic() {
             var audio = document.getElementById("track");
-            if (audio.paused) {
-                audio.play();
-                document.querySelector('.music-btn').innerText = "⏸️ PAUSE";
-            } else {
-                audio.pause();
-                document.querySelector('.music-btn').innerText = "🎵 PLAY WASSUP";
-            }
+            var btn = document.getElementById("mBtn");
+            if (audio.paused) { audio.play(); btn.innerText = "⏸️ PAUSE"; } 
+            else { audio.pause(); btn.innerText = "🎵 PLAY WASSUP"; }
+        }
+        function openTikTok() {
+            document.getElementById("tkModal").style.display = "flex";
+            document.getElementById("tkFrame").src = "https://www.tiktok.com/player/v1/7266185863339003141?autoplay=1";
+        }
+        function closeTikTok() {
+            document.getElementById("tkModal").style.display = "none";
+            document.getElementById("tkFrame").src = "";
         }
     </script>
-
 </body>
 </html>
